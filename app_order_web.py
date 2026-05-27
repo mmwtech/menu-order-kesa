@@ -172,7 +172,7 @@ Catatan:
 pesan_encode = urllib.parse.quote(pesan)
 
 link_wa = (
-    f"https://wa.me/{nomor_wa}"
+    f"https://wa.me/{6281804525422}"
     f"?text={pesan_encode}"
 )
 
