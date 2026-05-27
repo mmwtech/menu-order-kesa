@@ -34,32 +34,32 @@ catatan = st.text_area("Catatan Tambahan")
 st.markdown("---")
 st.subheader("🛒 Pilih Menu")
 
-qty_asinan = st.number_input(
-    "Asinan Buah",
+qty_asinaneslilin = st.number_input(
+    "Asinan plus es lilin",
     min_value=0,
     value=0
 )
 
-qty_eslilin = st.number_input(
-    "Es Lilin",
+qty_paketelk = st.number_input(
+    "Paket Es Lilin Kecil",
     min_value=0,
     value=0
 )
 
-qty_frozen = st.number_input(
-    "Frozen Snack",
+qty_paketelb = st.number_input(
+    "Paket Es Lilin Besar",
     min_value=0,
     value=0
 )
 
-qty_couple = st.number_input(
-    "Paket Couple",
+qty_mojito = st.number_input(
+    "Es Mojito",
     min_value=0,
     value=0
 )
 
-qty_keluarga = st.number_input(
-    "Paket Keluarga",
+qty_sogem = st.number_input(
+    "Es Soda Gembira",
     min_value=0,
     value=0
 )
@@ -68,32 +68,32 @@ qty_keluarga = st.number_input(
 # HARGA
 # =========================================
 
-harga_asinan = 20000
-harga_eslilin = 3000
-harga_frozen = 15000
-harga_couple = 35000
-harga_keluarga = 65000
+harga_asinaneslilin = 16000
+harga_paketelk = 25000
+harga_paketelb = 25000
+harga_mojito = 15000
+harga_sogem = 15000
 
 # =========================================
 # TOTAL PER MENU
 # =========================================
 
-total_asinan = qty_asinan * harga_asinan
-total_eslilin = qty_eslilin * harga_eslilin
-total_frozen = qty_frozen * harga_frozen
-total_couple = qty_couple * harga_couple
-total_keluarga = qty_keluarga * harga_keluarga
+total_asinaneslilin = qty_asinaneslilin * harga_asinaneslilin
+total_paketelk = qty_paketelk * harga_paketelk
+total_paketelb = qty_paketelb * harga_paketelb
+total_mojito = qty_mojito * harga_mojito
+total_sogem = qty_sogem * harga_sogem
 
 # =========================================
 # GRAND TOTAL
 # =========================================
 
 total = (
-    total_asinan
-    + total_eslilin
-    + total_frozen
-    + total_couple
-    + total_keluarga
+    total_asinaneslilin
+    + total_paketelk
+    + total_paketelb
+    + total_mojito
+    + total_sogem
 )
 
 # =========================================
@@ -103,34 +103,34 @@ total = (
 st.markdown("---")
 st.subheader("🧾 Ringkasan Order")
 
-if qty_asinan > 0:
+if qty_asinaneslilin > 0:
     st.write(
-        f"Asinan Buah : "
-        f"{qty_asinan} x Rp {harga_asinan:,}"
+        f"Asinan plus Es Lilin : "
+        f"{qty_asinaneslilin} x Rp {harga_asinaneslilin:,}"
     )
 
-if qty_eslilin > 0:
+if qty_paketelk > 0:
     st.write(
-        f"Es Lilin : "
-        f"{qty_eslilin} x Rp {harga_eslilin:,}"
+        f"Paket Es Lilin Kecil : "
+        f"{qty_paketelk} x Rp {harga_paketelk:,}"
     )
 
-if qty_frozen > 0:
+if qty_paketelb > 0:
     st.write(
-        f"Frozen Snack : "
-        f"{qty_frozen} x Rp {harga_frozen:,}"
+        f"Paket Es Lilin Besar : "
+        f"{qty_paketelb} x Rp {harga_paketelb:,}"
     )
 
-if qty_couple > 0:
+if qty_mojito > 0:
     st.write(
-        f"Paket Couple : "
-        f"{qty_couple} x Rp {harga_couple:,}"
+        f"Es Mojito : "
+        f"{qty_mojito} x Rp {harga_mojito:,}"
     )
 
-if qty_keluarga > 0:
+if qty_sogem > 0:
     st.write(
-        f"Paket Keluarga : "
-        f"{qty_keluarga} x Rp {harga_keluarga:,}"
+        f"Es Soda Gembira : "
+        f"{qty_sogem} x Rp {harga_sogem:,}"
     )
 
 st.markdown("---")
@@ -152,11 +152,11 @@ Nama : {nama}
 
 ====================
 
-Asinan Buah : {qty_asinan}
-Es Lilin : {qty_eslilin}
-Frozen Snack : {qty_frozen}
-Paket Couple : {qty_couple}
-Paket Keluarga : {qty_keluarga}
+Asinan plus Es Lilin : {qty_asinaneslilin}
+Paket Es Lilin Kecil : {qty_paketelk}
+Paket Es Lilin Kecil : {qty_paketelb}
+Es Mojito : {qty_mojito}
+Es Soda Gembira : {qty_sogem}
 
 ====================
 
