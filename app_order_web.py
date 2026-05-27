@@ -1,5 +1,6 @@
 import streamlit as st
 import urllib.parse
+import re
 
 # =========================================
 # CONFIG
@@ -11,10 +12,32 @@ st.set_page_config(
 )
 
 # =========================================
+# VALIDASI INPUT
+# =========================================
+
+def valid_text(teks, min_char):
+    teks = teks.strip()
+
+    # minimal karakter
+    if len(teks) < min_char:
+        return False
+
+    # harus mengandung huruf
+    if not re.search(r"[A-Za-zÀ-ÿ]", teks):
+        return False
+
+    # karakter yang diizinkan
+    if not re.fullmatch(r"[A-Za-zÀ-ÿ0-9\s,./\-]+", teks):
+        return False
+
+    return True
+
+# =========================================
 # HEADER
 # =========================================
 
 st.title("🍨 KeSa Homemade")
+
 st.subheader(
     "Order Foods & Drinks Minimal Rp 50.000 "
     "Free Delivery Cikarang"
@@ -67,8 +90,6 @@ qty_sogem = st.number_input(
     value=0
 )
 
-# MENU BARU
-
 qty_matcha = st.number_input(
     "Es Matcha Susu - Rp 15.000",
     min_value=0,
@@ -96,7 +117,6 @@ harga_paketelk = 25000
 harga_paketelb = 25000
 harga_mojito = 15000
 harga_sogem = 15000
-
 harga_matcha = 15000
 harga_lemon = 10000
 harga_jeruk = 8000
@@ -213,6 +233,26 @@ if total > 0 and total < minimal_order:
     )
 
 # =========================================
+# VALIDASI FORM
+# =========================================
+
+nama_valid = valid_text(nama, 4)
+
+alamat_valid = valid_text(alamat, 6)
+
+if nama and not nama_valid:
+    st.warning(
+        "Nama minimal 4 huruf "
+        "dan tidak boleh karakter aneh."
+    )
+
+if alamat and not alamat_valid:
+    st.warning(
+        "Alamat minimal 6 huruf "
+        "dan tidak boleh karakter aneh."
+    )
+
+# =========================================
 # WHATSAPP
 # =========================================
 
@@ -258,7 +298,11 @@ link_wa = (
 # BUTTON ORDER
 # =========================================
 
-if total >= minimal_order:
+if (
+    total >= minimal_order
+    and nama_valid
+    and alamat_valid
+):
 
     if st.button("📲 Kirim Order ke WhatsApp"):
 
