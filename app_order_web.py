@@ -15,7 +15,7 @@ st.set_page_config(
 # =========================================
 
 st.title("🍨 KeSa Homemade")
-st.subheader("Order Frozen Snack & Drinks")
+st.subheader("Order Foods & Drinks")
 
 # =========================================
 # INPUT CUSTOMER
@@ -35,19 +35,19 @@ st.markdown("---")
 st.subheader("🛒 Pilih Menu")
 
 qty_asinaneslilin = st.number_input(
-    "Asinan plus es lilin",
+    "Paket Asinan + es lilin",
     min_value=0,
     value=0
 )
 
 qty_paketelk = st.number_input(
-    "Paket Es Lilin Kecil",
+    "Paket Es Lilin Kecil (isi 10)",
     min_value=0,
     value=0
 )
 
 qty_paketelb = st.number_input(
-    "Paket Es Lilin Besar",
+    "Paket Es Lilin Besar (isi 6)",
     min_value=0,
     value=0
 )
@@ -105,19 +105,19 @@ st.subheader("🧾 Ringkasan Order")
 
 if qty_asinaneslilin > 0:
     st.write(
-        f"Asinan plus Es Lilin : "
+        f"Paket Asinan + Es Lilin : "
         f"{qty_asinaneslilin} x Rp {harga_asinaneslilin:,}"
     )
 
 if qty_paketelk > 0:
     st.write(
-        f"Paket Es Lilin Kecil : "
+        f"Paket Es Lilin Kecil (isi 10) : "
         f"{qty_paketelk} x Rp {harga_paketelk:,}"
     )
 
 if qty_paketelb > 0:
     st.write(
-        f"Paket Es Lilin Besar : "
+        f"Paket Es Lilin Besar (isi 6) : "
         f"{qty_paketelb} x Rp {harga_paketelb:,}"
     )
 
@@ -152,9 +152,9 @@ Nama : {nama}
 
 ====================
 
-Asinan plus Es Lilin : {qty_asinaneslilin}
-Paket Es Lilin Kecil : {qty_paketelk}
-Paket Es Lilin Kecil : {qty_paketelb}
+Paket Asinan + Es Lilin : {qty_asinaneslilin}
+Paket Es Lilin Kecil (isi 10) : {qty_paketelk}
+Paket Es Lilin Besar (isi 6) : {qty_paketelb}
 Es Mojito : {qty_mojito}
 Es Soda Gembira : {qty_sogem}
 
