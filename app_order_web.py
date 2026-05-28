@@ -61,7 +61,7 @@ st.markdown("---")
 st.subheader("🛒 Pilih Menu")
 
 qty_asinaneslilin = st.number_input(
-    "Paket Asinan + Es Lilin - Rp 16.000",
+    "Paket Asinan + Es Lilin - Rp 15.500",
     min_value=0,
     value=0
 )
@@ -73,25 +73,25 @@ qty_paketelk = st.number_input(
 )
 
 qty_paketelb = st.number_input(
-    "Paket Es Lilin Besar (isi 6) - Rp 25.000",
+    "Paket Es Lilin Besar (isi 5) - Rp 20.000",
     min_value=0,
     value=0
 )
 
 qty_mojito = st.number_input(
-    "Es Mojito - Rp 15.000",
+    "Es Mojito - Rp 12.000",
     min_value=0,
     value=0
 )
 
 qty_sogem = st.number_input(
-    "Es Soda Gembira - Rp 15.000",
+    "Es Soda Gembira - Rp 12.000",
     min_value=0,
     value=0
 )
 
 qty_matcha = st.number_input(
-    "Es Matcha Susu - Rp 15.000",
+    "Es Matcha Susu - Rp 12.000",
     min_value=0,
     value=0
 )
@@ -112,12 +112,12 @@ qty_jeruk = st.number_input(
 # HARGA
 # =========================================
 
-harga_asinaneslilin = 16000
+harga_asinaneslilin = 15500
 harga_paketelk = 25000
-harga_paketelb = 25000
-harga_mojito = 15000
-harga_sogem = 15000
-harga_matcha = 15000
+harga_paketelb = 20000
+harga_mojito = 12000
+harga_sogem = 12000
+harga_matcha = 12000
 harga_lemon = 10000
 harga_jeruk = 8000
 
