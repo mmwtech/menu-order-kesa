@@ -16,21 +16,60 @@ st.set_page_config(
 # =========================================
 
 def valid_text(teks, min_char):
+
     teks = teks.strip()
 
-    # minimal karakter
     if len(teks) < min_char:
         return False
 
-    # harus mengandung huruf
     if not re.search(r"[A-Za-zÀ-ÿ]", teks):
         return False
 
-    # karakter yang diizinkan
-    if not re.fullmatch(r"[A-Za-zÀ-ÿ0-9\s,./\-]+", teks):
+    if not re.fullmatch(
+        r"[A-Za-zÀ-ÿ0-9\s,./\-]+",
+        teks
+    ):
         return False
 
     return True
+
+# =========================================
+# ONGKIR
+# =========================================
+
+ongkir_data = {
+    "Babelan": 22000,
+    "Bojongmangu": 18000,
+    "Cabangbungin": 42000,
+    "Cibarusah": 8000,
+    "Cibitung": 12000,
+    "Cikarang Barat": 5000,
+    "Cikarang Pusat": 8000,
+    "Cikarang Selatan": 4000,
+    "Cikarang Timur": 14000,
+    "Cikarang Utara": 9000,
+    "Karangbahagia": 17000,
+    "Kedungwaringin": 19000,
+    "Muaragembong": 35000,
+    "Pebayuran": 24000,
+    "Serang Baru": 5000,
+    "Setu": 11000,
+    "Sukakarya": 18000,
+    "Sukatani": 17000,
+    "Tambelang": 16000,
+    "Tambun Selatan": 12000,
+    "Tambun Utara": 16000,
+    "Tarumajaya": 26000
+}
+
+free_ongkir_area = [
+    "Cikarang Selatan",
+    "Cikarang Barat",
+    "Cikarang Pusat",
+    "Cikarang Utara"
+]
+
+minimal_free_ongkir = 100000
 
 # =========================================
 # HEADER
@@ -39,8 +78,15 @@ def valid_text(teks, min_char):
 st.title("🍨 KeSa Homemade")
 
 st.subheader(
-    "Order Foods & Drinks Minimal Rp 50.000 "
-    "Free Delivery Cikarang"
+    "Order Foods & Drinks"
+)
+
+st.info(
+    "🎁 Free Ongkir minimal Rp100.000 "
+    "khusus Cikarang Selatan, "
+    "Cikarang Barat, "
+    "Cikarang Pusat, "
+    "dan Cikarang Utara"
 )
 
 # =========================================
@@ -50,6 +96,11 @@ st.subheader(
 nama = st.text_input("Nama Pembeli")
 
 alamat = st.text_area("Alamat Pengiriman")
+
+kecamatan = st.selectbox(
+    "Pilih Kecamatan",
+    list(ongkir_data.keys())
+)
 
 catatan = st.text_area("Catatan Tambahan")
 
@@ -144,10 +195,10 @@ total_lemon = qty_lemon * harga_lemon
 total_jeruk = qty_jeruk * harga_jeruk
 
 # =========================================
-# GRAND TOTAL
+# SUBTOTAL
 # =========================================
 
-total = (
+subtotal = (
     total_asinaneslilin
     + total_paketelk
     + total_paketelb
@@ -157,6 +208,28 @@ total = (
     + total_lemon
     + total_jeruk
 )
+
+# =========================================
+# ONGKIR
+# =========================================
+
+ongkir_asli = ongkir_data[kecamatan]
+
+if (
+    kecamatan in free_ongkir_area
+    and subtotal >= minimal_free_ongkir
+):
+    ongkir = 0
+    free_ongkir = True
+else:
+    ongkir = ongkir_asli
+    free_ongkir = False
+
+# =========================================
+# GRAND TOTAL
+# =========================================
+
+grand_total = subtotal + ongkir
 
 # =========================================
 # RINGKASAN
@@ -215,20 +288,32 @@ if qty_jeruk > 0:
 
 st.markdown("---")
 
-st.subheader(f"💰 Total : Rp {total:,}")
+st.write(f"Subtotal : Rp {subtotal:,}")
+
+if free_ongkir:
+    st.success(
+        f"🎉 FREE ONGKIR "
+        f"(Normal Rp {ongkir_asli:,})"
+    )
+else:
+    st.write(f"Ongkir : Rp {ongkir:,}")
+
+st.subheader(
+    f"💰 Grand Total : Rp {grand_total:,}"
+)
 
 # =========================================
 # VALIDASI MINIMAL ORDER
 # =========================================
 
-minimal_order = 50000
+minimal_order = 25000
 
-if total > 0 and total < minimal_order:
+if subtotal > 0 and subtotal < minimal_order:
 
-    kurang = minimal_order - total
+    kurang = minimal_order - subtotal
 
     st.warning(
-        f"Minimal order delivery Rp 50.000\n\n"
+        f"Minimal order delivery Rp 25.000\n\n"
         f"Tambah order lagi Rp {kurang:,}"
     )
 
@@ -278,7 +363,18 @@ Es Jeruk Selasih : {qty_jeruk}
 
 ====================
 
-Total : Rp {total:,}
+Kecamatan : {kecamatan}
+
+Subtotal : Rp {subtotal:,}
+"""
+
+if free_ongkir:
+    pesan += "Ongkir : GRATIS\n"
+else:
+    pesan += f"Ongkir : Rp {ongkir:,}\n"
+
+pesan += f"""
+Grand Total : Rp {grand_total:,}
 
 Alamat:
 {alamat}
@@ -299,7 +395,7 @@ link_wa = (
 # =========================================
 
 if (
-    total >= minimal_order
+    subtotal >= minimal_order
     and nama_valid
     and alamat_valid
 ):
