@@ -38,16 +38,16 @@ def valid_text(teks, min_char):
 # =========================================
 
 ongkir_data = {
+    "Cikarang Selatan": 4000,
+    "Cikarang Barat": 5000,
+    "Cikarang Pusat": 8000,
+    "Cikarang Timur": 14000,
+    "Cikarang Utara": 9000,
+    "Cibitung": 12000,
+    "Cibarusah": 8000,
     "Babelan": 22000,
     "Bojongmangu": 18000,
     "Cabangbungin": 42000,
-    "Cibarusah": 8000,
-    "Cibitung": 12000,
-    "Cikarang Barat": 5000,
-    "Cikarang Pusat": 8000,
-    "Cikarang Selatan": 4000,
-    "Cikarang Timur": 14000,
-    "Cikarang Utara": 9000,
     "Karangbahagia": 17000,
     "Kedungwaringin": 19000,
     "Muaragembong": 35000,
@@ -303,11 +303,13 @@ st.subheader(
 )
 
 # =========================================
-# VALIDASI MINIMAL ORDER
+# VALIDASI ORDER
 # =========================================
 
 minimal_order = 25000
+maksimal_order = 200000
 
+# Minimal order
 if subtotal > 0 and subtotal < minimal_order:
 
     kurang = minimal_order - subtotal
@@ -315,6 +317,17 @@ if subtotal > 0 and subtotal < minimal_order:
     st.warning(
         f"Minimal order delivery Rp 25.000\n\n"
         f"Tambah order lagi Rp {kurang:,}"
+    )
+
+# Maksimal order
+if subtotal > maksimal_order:
+
+    lebih = subtotal - maksimal_order
+
+    st.error(
+        f"Maaf, maksimal order sekali pengiriman "
+        f"Rp 200.000\n\n"
+        f"Kurangi order Rp {lebih:,}"
     )
 
 # =========================================
@@ -396,6 +409,7 @@ link_wa = (
 
 if (
     subtotal >= minimal_order
+    and subtotal <= maksimal_order
     and nama_valid
     and alamat_valid
 ):
